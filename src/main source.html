@@ -1,0 +1,75 @@
+
+<!doctype html>
+<html>
+
+<head>
+    <title>Play Prodigy</title>
+    <meta
+        name="description"
+        content="Amazing pets, epic battles and math practice. Prodigy, the no-cost math game where kids can earn prizes, go on quests and play with friends all while learning math."
+     />
+    <meta
+        property="og:title"
+        content="Play Prodigy"
+    />
+    <meta
+        property="og:description"
+        content="Amazing pets, epic battles and math practice. Prodigy, the no-cost math game where kids can earn prizes, go on quests and play with friends all while learning math."
+    />
+    <meta
+        name="twitter:title"
+        content="Play Prodigy"
+    />
+    <meta
+        name="twitter:description"
+        content="Amazing pets, epic battles and math practice. Prodigy, the no-cost math game where kids can earn prizes, go on quests and play with friends all while learning math."
+    />
+    <link rel="stylesheet" type="text/css" href="https://code.prodigygame.com/assets/styles/error-9a83c2b2ff.css">
+    <script src="https://code.prodigygame.com/js/load-identity-2d77daa177.min.js"></script>
+    <script src="https://code.prodigygame.com/js/storage-8cb1f023c7.min.js"></script>
+    <script>
+        var authority = 'https://sso.prodigygame.com';
+        var client_id = '1ec6db26357422a073fa9c5abae23d06d56dde0f678102a70e3a8d6ea84022fa';
+        var redirect_uri = 'https://play.prodigygame.com/play';
+        var promptParam = 'login';
+        var prodigyServiceUrl = 'https://api.prodigygame.com/';
+        var eventDataStr = '{"uuid":"5598af8b-a5da-4745-bec8-22a540f08a44","env":"production","version":"2.2.13","startEventTimestamp":1616037321870}';
+        var allowAutoLogin = false;
+        var startEventTimestamp = Date.now();
+        window.eventData = JSON.parse(eventDataStr);
+
+        // Do this first so that errors for all subsequent executed code is captured
+        SW.LoadIdentity.sentryInit(eventData);
+
+        SW.Storage.set(SW.LoadIdentity.STORAGE_EVENT_DATA, eventDataStr);
+        SW.Storage.set(SW.LoadIdentity.STORAGE_START_EVENT_TS, startEventTimestamp);
+
+        SW.LoadIdentity.setTrackingCookie();
+        SW.LoadIdentity.displayVersion();
+        SW.LoadIdentity.sendLoginStart();
+        SW.LoadIdentity.redirectToIdentity(authority, client_id, redirect_uri, promptParam, allowAutoLogin);
+    </script>
+</head>
+
+<body>
+    <div id="game-loading-container-div" class="game-loading container">
+        <div id="error-div" style="display: none;">
+            <div id="error-panel">
+              <img src="https://code.prodigygame.com/assets/images/alert-c51200b90c.png" id="error-icon" />
+                <!-- TODO: Localize -->
+                <p id="error-title">Error!</p>
+                <p id="error-text">Oops something went wrong.</br>Try logging in again or come back later.</p>
+                <div id="try-again-button">
+                  <img src="https://code.prodigygame.com/assets/images/arrow-a202566394.png" id="error-button-arrow">
+                    <p>Back to log in</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        SW.LoadIdentity.checkPendingErrorScreen();
+    </script>
+</body>
+
+</html>
